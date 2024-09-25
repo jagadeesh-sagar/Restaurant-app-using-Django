@@ -1,9 +1,9 @@
 from django.urls import path
-from . import  views
+from . import views
 
 urlpatterns =[
-    path('', views.MenuList.as_view(), name="home")
+    path('', views.MenuList.as_view(), name="home"),
+    path('about/', views.about, name="about"),
+    path('item/<int:pk>/', views.MenuItemDetail.as_view(), name="menu_item")
 
 ]
-""",
-  path('', views.MenuItemDetail.as_view(), name="home")"""
