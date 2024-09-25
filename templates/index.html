@@ -1,35 +1,55 @@
 {% extends 'base.html' %}
-{% block content %}
-<style>
-  .card:hover {
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    transform: scale(1.05);
-    transition: all 0.3s ease-in-out;
-  }
-</style>
 
+{% block content %}
 <div class="container my-5">
   <h1 class="text-center mb-5">Restaurant Menu</h1>
-  <!-- Loop through meals -->
+
+  <style>
+    /* Hover effect for the card */
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      transform: scale(1.05);
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Hover effect for the meal name */
+    .card h3:hover {
+      color: #007bff;
+      transition: color 0.3s ease-in-out;
+    }
+  </style>
+
   {% for meal in meals %}
-    <h2 class="pt-5">{{ meal.1 }}</h2>
-    <div class="row">
+    <h2 class="pt-5 text-center">{{ meal.1 }}</h2>
+    <div class="row g-4 justify-content-center">
       {% for row in item_list %}
         {% if row.meal_type == meal.0 %}
-          <div class="col-md-6 mb-4">
-            <div class="card shadow-sm h-100">
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card h-100 shadow-sm border-0">
+              <!-- Display meal image -->
+              {% if row.image %}
+                <img src="{{ row.image.url }}" class="card-img-top" alt="{{ row.meal }}">
+              {% else %}
+                <img src="https://via.placeholder.com/350x200" class="card-img-top" alt="No Image Available">
+              {% endif %}
+
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                  <a href="{% url 'menu_item' row.pk %}">
+                  <a href="{% url 'menu_item' row.pk %}" class="text-decoration-none">
                     {% if row.status == 0 %}
                       <h3 class="text-muted"><del>{{ row.meal }}</del></h3>
                     {% else %}
                       <h3>{{ row.meal }}</h3>
                     {% endif %}
                   </a>
-                  <span class="badge bg-primary rounded-pill fs-5">{{ row.price }}</span>
+                  <span class="badge bg-primary rounded-pill fs-5">${{ row.price }}</span>
                 </div>
-                <p class="mt-3">{{ row.description }}</p>
+                <p class="mt-2">{{ row.description|truncatewords:20 }}</p>
+              </div>
+
+              <div class="card-footer bg-transparent d-flex justify-content-between">
+                <a href="{% url 'menu_item' row.pk %}" class="btn btn-outline-primary">More Info</a>
+                <a href="#" class="btn btn-primary">Order Now</a>
               </div>
             </div>
           </div>
