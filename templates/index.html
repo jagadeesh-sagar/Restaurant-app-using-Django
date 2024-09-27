@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active c-item" data-bs-interval="5000">
+          <img src="../media/carousel_images/image1.jpg" class="d-block w-100 c-img" alt="3 dishes">
+        </div>
+        <div class="carousel-item c-item" data-bs-interval="5000">
+          <img src="../media/carousel_images/vada_pav.jpg" class="d-block w-100 c-img" alt="chole_bhature">
+        </div>
+        <div class="carousel-item c-item" data-bs-interval="5000">
+          <img src="../media/carousel_images/laddu.jpg" class="d-block w-100 c-img" alt="paneer_curry">
+        </div>
+        <div class="carousel-item c-item">
+          <img src="../media/carousel_images/gulab_jamun1.jpg" class="d-block w-100 c-img" alt="gulab jamun">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
 <div class="container my-5">
   <h1 class="text-center mb-5">Restaurant Menu</h1>
 
@@ -17,10 +48,19 @@
       color: #007bff;
       transition: color 0.3s ease-in-out;
     }
+
+    .c-item {
+      height: 550px;
+    }
+
+    .c-img {
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 
   {% for meal in meals %}
-    <h2 class="pt-5 text-center">{{ meal.1 }}</h2>
+    <h2 class="pt-4 pb-4 text-center">{{ meal.1 }}</h2>
     <div class="row g-4 justify-content-center">
       {% for row in item_list %}
         {% if row.meal_type == meal.0 %}
@@ -49,7 +89,7 @@
 
               <div class="card-footer bg-transparent d-flex justify-content-between">
                 <a href="{% url 'menu_item' row.pk %}" class="btn btn-outline-primary">More Info</a>
-                <a href="#" class="btn btn-primary">Order Now</a>
+                <a href="#" class="btn btn-success">Order Now</a>
               </div>
             </div>
           </div>
